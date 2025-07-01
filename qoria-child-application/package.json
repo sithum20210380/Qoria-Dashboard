@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@reduxjs/toolkit": "^2.8.2",
+    "@types/antd": "^1.0.4",
     "@types/node": "^24.0.7",
+    "antd": "^5.26.3",
     "highcharts-react-official": "^3.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
