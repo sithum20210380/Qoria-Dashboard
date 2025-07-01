@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
-import { dataSlice } from './slices/dataSlice'
+import { dataSlice } from './slices/dataSlices'
 import { filterSlice } from './slices/filterSlice'
 import { rootSaga } from './sagas/rootSaga'
 
