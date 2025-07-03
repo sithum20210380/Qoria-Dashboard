@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 
-// Bootstrap function for standalone running
 const mount = (el: HTMLElement) => {
   const root = ReactDOM.createRoot(el)
   root.render(<App />)
@@ -16,5 +15,4 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-// Export for container application
 export { default } from './components/ChartComponents'
