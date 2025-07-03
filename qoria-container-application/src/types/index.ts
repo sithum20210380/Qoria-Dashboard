@@ -1,4 +1,3 @@
-// Product and Category Types
 export interface Product {
   id: number;
   title: string;

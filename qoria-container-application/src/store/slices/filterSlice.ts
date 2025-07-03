@@ -14,13 +14,13 @@ const filterSlice = createSlice({
   reducers: {
     setSelectedCategory: (state, action: PayloadAction<string | null>) => {
       state.selectedCategory = action.payload
-      state.selectedProducts = [] // Clear products when category changes
-      state.hasReportRun = false // Reset report status
+      state.selectedProducts = [] 
+      state.hasReportRun = false
       state.isRunReportEnabled = Boolean(action.payload)
     },
     setSelectedProducts: (state, action: PayloadAction<string[]>) => {
       state.selectedProducts = action.payload
-      state.hasReportRun = false // Reset report status when products change
+      state.hasReportRun = false
       state.isRunReportEnabled = Boolean(state.selectedCategory)
     },
     clearCategoryFilter: (state) => {
@@ -42,7 +42,7 @@ const filterSlice = createSlice({
     },
     runReport: (state) => {
       state.hasReportRun = true
-      state.isRunReportEnabled = false // Disable until next filter change
+      state.isRunReportEnabled = false
     },
   },
 })

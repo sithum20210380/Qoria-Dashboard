@@ -24,6 +24,3 @@ sagaMiddleware.run(rootSaga)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-
-// qoria-container-application/src/store/sagas/rootSaga.ts
-// (rootSaga is imported above; remove local definition here)

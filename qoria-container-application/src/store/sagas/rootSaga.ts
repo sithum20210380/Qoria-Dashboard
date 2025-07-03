@@ -8,7 +8,5 @@ import { watchFetchProducts } from './dataSaga'
 export function* rootSaga() {
   yield all([
     fork(watchFetchProducts),
-    // Add more sagas here as needed
-    // fork(watchOtherSaga),
   ])
 }
