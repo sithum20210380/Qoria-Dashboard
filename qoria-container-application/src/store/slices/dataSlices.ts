@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { Product, DataState } from '../../types'
+import type { DataState, Product } from '../../types'
 
 const initialState: DataState = {
   products: [],
@@ -8,11 +8,10 @@ const initialState: DataState = {
   error: null,
 }
 
-export const dataSlice = createSlice({
+const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    // Fetch Products Actions
     fetchProductsRequest: (state) => {
       state.loading = true
       state.error = null
@@ -25,26 +24,19 @@ export const dataSlice = createSlice({
       // Generate categories from products
       const categoryMap = new Map<string, number>()
       action.payload.forEach(product => {
-        const category = product.category
-        categoryMap.set(category, (categoryMap.get(category) || 0) + 1)
+        const count = categoryMap.get(product.category) || 0
+        categoryMap.set(product.category, count + 1)
       })
       
       state.categories = Array.from(categoryMap.entries()).map(([name, count]) => ({
         id: name.toLowerCase().replace(/\s+/g, '-'),
         name,
-        count
+        count,
       }))
     },
     fetchProductsFailure: (state, action: PayloadAction<string>) => {
       state.loading = false
       state.error = action.payload
-    },
-    
-    // Clear Data
-    clearData: (state) => {
-      state.products = []
-      state.categories = []
-      state.error = null
     },
   },
 })
@@ -53,5 +45,6 @@ export const {
   fetchProductsRequest,
   fetchProductsSuccess,
   fetchProductsFailure,
-  clearData,
 } = dataSlice.actions
+
+export default dataSlice.reducer

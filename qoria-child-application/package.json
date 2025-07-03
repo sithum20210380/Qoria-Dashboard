@@ -15,6 +15,7 @@
     "@types/antd": "^1.0.4",
     "@types/node": "^24.0.7",
     "antd": "^5.26.3",
+    "highcharts": "^12.3.0",
     "highcharts-react-official": "^3.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

@@ -1,30 +1,29 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
-import { dataSlice } from './slices/dataSlices'
-import { filterSlice } from './slices/filterSlice'
+import dataReducer from './slices/dataSlices'
+import filterReducer from './slices/filterSlice'
 import { rootSaga } from './sagas/rootSaga'
 
-// Create saga middleware
 const sagaMiddleware = createSagaMiddleware()
 
-// Configure store with Redux Toolkit
 export const store = configureStore({
   reducer: {
-    data: dataSlice.reducer,
-    filter: filterSlice.reducer,
+    data: dataReducer,
+    filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk: false, // Disable thunk as we're using saga
+      thunk: false,
       serializableCheck: {
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
       },
     }).concat(sagaMiddleware),
-  devTools: process.env.NODE_ENV !== 'production',
 })
 
-// Run saga middleware
 sagaMiddleware.run(rootSaga)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+// qoria-container-application/src/store/sagas/rootSaga.ts
+// (rootSaga is imported above; remove local definition here)

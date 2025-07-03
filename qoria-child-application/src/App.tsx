@@ -1,30 +1,25 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { ConfigProvider } from 'antd';
-import { store } from './store';
-import ChartDashboard from './components/organisms/ChartDashboard';
-import './App.css';
+import React from 'react'
+import { ConfigProvider } from 'antd'
+import ChartComponents from './components/ChartComponents'
+import './App.css'
 
 /**
- * Root application component
+ * Child Application - Chart Components
+ * Microfrontend application for rendering charts
  */
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#1890ff',
-            borderRadius: 6,
-          },
-        }}
-      >
-        <div className="child-app">
-          <ChartDashboard />
-        </div>
-      </ConfigProvider>
-    </Provider>
-  );
-};
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#1890ff',
+          borderRadius: 8,
+        },
+      }}
+    >
+      <ChartComponents />
+    </ConfigProvider>
+  )
+}
 
-export default App;
+export default App

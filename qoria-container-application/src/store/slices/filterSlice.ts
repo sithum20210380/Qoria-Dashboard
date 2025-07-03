@@ -8,75 +8,41 @@ const initialState: FilterState = {
   hasReportRun: false,
 }
 
-export const filterSlice = createSlice({
+const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    // Category Selection
     setSelectedCategory: (state, action: PayloadAction<string | null>) => {
       state.selectedCategory = action.payload
-      // Clear selected products when category changes
-      if (action.payload !== state.selectedCategory) {
-        state.selectedProducts = []
-      }
-      // Update run report button state
-      state.isRunReportEnabled = !!(action.payload || state.selectedProducts.length > 0)
-      state.hasReportRun = false
+      state.selectedProducts = [] // Clear products when category changes
+      state.hasReportRun = false // Reset report status
+      state.isRunReportEnabled = Boolean(action.payload)
     },
-    
-    // Product Selection
     setSelectedProducts: (state, action: PayloadAction<string[]>) => {
       state.selectedProducts = action.payload
-      // Update run report button state
-      state.isRunReportEnabled = !!(state.selectedCategory || action.payload.length > 0)
-      state.hasReportRun = false
+      state.hasReportRun = false // Reset report status when products change
+      state.isRunReportEnabled = Boolean(state.selectedCategory)
     },
-    
-    // Add Single Product
-    addSelectedProduct: (state, action: PayloadAction<string>) => {
-      if (!state.selectedProducts.includes(action.payload)) {
-        state.selectedProducts.push(action.payload)
-        state.isRunReportEnabled = true
-        state.hasReportRun = false
-      }
-    },
-    
-    // Remove Single Product
-    removeSelectedProduct: (state, action: PayloadAction<string>) => {
-      state.selectedProducts = state.selectedProducts.filter(p => p !== action.payload)
-      state.isRunReportEnabled = !!(state.selectedCategory || state.selectedProducts.length > 0)
-      state.hasReportRun = false
-    },
-    
-    // Clear Individual Filters
     clearCategoryFilter: (state) => {
       state.selectedCategory = null
-      state.isRunReportEnabled = state.selectedProducts.length > 0
+      state.selectedProducts = []
       state.hasReportRun = false
+      state.isRunReportEnabled = false
     },
-    
     clearProductsFilter: (state) => {
       state.selectedProducts = []
-      state.isRunReportEnabled = !!state.selectedCategory
       state.hasReportRun = false
+      state.isRunReportEnabled = Boolean(state.selectedCategory)
     },
-    
-    // Clear All Filters
     clearAllFilters: (state) => {
       state.selectedCategory = null
       state.selectedProducts = []
-      state.isRunReportEnabled = false
       state.hasReportRun = false
+      state.isRunReportEnabled = false
     },
-    
-    // Run Report Actions
     runReport: (state) => {
       state.hasReportRun = true
-      state.isRunReportEnabled = false
-    },
-    
-    enableRunReport: (state) => {
-      state.isRunReportEnabled = !!(state.selectedCategory || state.selectedProducts.length > 0)
+      state.isRunReportEnabled = false // Disable until next filter change
     },
   },
 })
@@ -84,11 +50,10 @@ export const filterSlice = createSlice({
 export const {
   setSelectedCategory,
   setSelectedProducts,
-  addSelectedProduct,
-  removeSelectedProduct,
   clearCategoryFilter,
   clearProductsFilter,
   clearAllFilters,
   runReport,
-  enableRunReport,
 } = filterSlice.actions
+
+export default filterSlice.reducer

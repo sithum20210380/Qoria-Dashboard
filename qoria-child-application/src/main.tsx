@@ -1,28 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './App.css';
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css'
 
-// Create root element if it doesn't exist (for microfrontend)
-let rootElement = document.getElementById('child-app-root');
-if (!rootElement) {
-  rootElement = document.createElement('div');
-  rootElement.id = 'child-app-root';
-  document.body.appendChild(rootElement);
+// Bootstrap function for standalone running
+const mount = (el: HTMLElement) => {
+  const root = ReactDOM.createRoot(el)
+  root.render(<App />)
 }
 
-const root = ReactDOM.createRoot(rootElement);
-
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// Export for microfrontend integration
-export { default as ChartApp } from './App';
-
-// For development mode
-if (import.meta.env.DEV) {
-  console.log('Child Chart App running in development mode');
+// Mount to root if running in isolation
+if (process.env.NODE_ENV === 'development') {
+  const devRoot = document.getElementById('root')
+  if (devRoot) {
+    mount(devRoot)
+  }
 }
+
+// Export for container application
+export { default } from './components/ChartComponents'
