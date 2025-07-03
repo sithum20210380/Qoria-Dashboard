@@ -7,7 +7,7 @@ import pkg from './package.json'
 const deps = pkg.dependencies as Record<string, string>
 
 export default defineConfig({
-  base: './', // 🛠️ ensures assets load properly in preview mode
+  base: './',
   plugins: [
     react(),
     federation({

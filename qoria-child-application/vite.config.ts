@@ -6,7 +6,7 @@ import pkg from './package.json'
 const deps = pkg.dependencies;
 
 export default defineConfig({
-  base: './', // 🛠️ important for relative paths in preview mode
+  base: './',
   plugins: [
     react(),
     federation({

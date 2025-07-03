@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react'
 import { Card, Spin, Alert } from 'antd'
-//import { PieChartOutlined, BarChartOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../../store'
 import type { PieChartData, ColumnChartData } from '../../types'
 import ErrorBoundary from '../ErrorBoundary'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 // Lazy load the remote chart components
 const ChartComponents = React.lazy(() => import('chartComponents/ChartComponents'))
@@ -54,7 +51,6 @@ const ChartContainer: React.FC = () => {
     if (!hasReportRun) return []
 
     if (selectedCategory && selectedProducts.length > 0) {
-      // Show only selected products from the category
       const filteredProducts = products.filter(p => 
         p.category === selectedCategory && selectedProducts.includes(p.title)
       )
@@ -65,7 +61,6 @@ const ChartContainer: React.FC = () => {
         category: product.category
       }))
     } else if (selectedCategory) {
-      // Show top 10 products from category by stock
       const categoryProducts = products
         .filter(p => p.category === selectedCategory)
         .sort((a, b) => b.stock - a.stock)
@@ -77,7 +72,6 @@ const ChartContainer: React.FC = () => {
         category: product.category
       }))
     } else {
-      // Show category totals
       const categoryStocks = categories.map(category => {
         const categoryProducts = products.filter(p => p.category === category.name)
         const totalStock = categoryProducts.reduce((sum, p) => sum + p.stock, 0)
