@@ -9,6 +9,10 @@ This project consists of two applications:
 - **Container Application** (`qoria-container-application`) - Main application with filters and business logic
 - **Child Application** (`qoria-child-application`) - Chart components using Highcharts
 
+## 🎥 Demo
+ 
+👉 **Watch the demo video here:** [https://youtu.be/Disy0RBOzug](https://youtu.be/Disy0RBOzug)
+
 ## 🚀 Features
 
 - **Microfrontend Architecture**: Module Federation for scalable frontend architecture
