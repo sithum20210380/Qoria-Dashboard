@@ -11,7 +11,8 @@ This project consists of two applications:
 
 ## 🎥 Demo
  
-👉 **Watch the demo video here:** [https://youtu.be/Disy0RBOzug](https://youtu.be/Disy0RBOzug)
+[![Qoria Dashboard Demo](https://img.youtube.com/vi/Q21I13ht-hM/0.jpg)](https://youtu.be/Q21I13ht-hM)  
+👉 **Watch the demo video here:** [https://youtu.be/Q21I13ht-hM](https://youtu.be/Q21I13ht-hM)
 
 ## 🚀 Features
 
