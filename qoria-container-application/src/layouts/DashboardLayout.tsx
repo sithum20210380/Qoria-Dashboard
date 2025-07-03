@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { Layout, Typography, Row, Col, Divider } from 'antd'
-import { DashboardOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductsRequest } from '../store/slices/dataSlices'
 import { type RootState } from '../store'
-import FilterPanel from '../components/molecules/FilterPanel'
-import ChartContainer from '../components/organisms/ChartContainer'
+import FilterPanel from '../components/filterPanel/FilterPanel'
+import ChartContainer from '../components/chartContainer/ChartContainer'
+import styles from './DashboardLayout.module.css'
+
+import Logo from '../assets/qoria-logo.webp'
 
 const { Header, Content } = Layout
 const { Title, Text } = Typography
@@ -19,30 +21,27 @@ const DashboardLayout: React.FC = () => {
   }, [dispatch])
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
-      <Header style={{ 
-        background: 'linear-gradient(90deg, #1890ff 0%, #722ed1 100%)',
-        padding: '0 24px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)'
-      }}>
-        <Row align="middle" justify="space-between">
-          <Col>
-            <Title level={2} style={{ color: 'white', margin: 0 }}>
-              <DashboardOutlined style={{ marginRight: 12 }} />
-              Qoria Product Dashboard
-            </Title>
-          </Col>
-          <Col>
-            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px' }}>
-              Micro Frontend Architecture
-            </Text>
-          </Col>
-        </Row>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Header className={styles.header}>
+
+          <div className={styles.logoTitle}>
+            <div>
+              <img src={Logo} alt="Qoria Logo" className={styles.logoImage} />
+            </div>
+
+            <div>
+              <Text className={styles.subtitle}>
+                Product Dashboard
+              </Text>
+            </div>
+
+          </div>
+
       </Header>
 
-      <Content style={{ padding: '24px', background: '#f0f2f5' }}>
-        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-          <div style={{ marginBottom: 24, textAlign: 'center' }}>
+      <Content className={styles.content}>
+        <div className={styles.container}>
+          <div className={styles.sectionTitle}>
             <Title level={3} style={{ color: '#1890ff' }}>
               Product Category & Analysis Dashboard
             </Title>
@@ -62,16 +61,11 @@ const DashboardLayout: React.FC = () => {
             </Col>
           </Row>
 
-          <div style={{ 
-            marginTop: 48, 
-            textAlign: 'center', 
-            padding: '24px 0',
-            borderTop: '1px solid #f0f0f0'
-          }}>
-            <Text type="secondary" style={{ fontSize: '12px' }}>
-              Qoria Dashboard v1.0 | Built with React + TypeScript + Ant Design + Redux Saga
+          <div className={styles.footer}>
+            <Text className={styles.footerText}>
+              Qoria Dashboard v1.0
               <br />
-              Container Application - Micro Frontend Architecture
+              © Develop by Sithum Raveesha
             </Text>
           </div>
         </div>

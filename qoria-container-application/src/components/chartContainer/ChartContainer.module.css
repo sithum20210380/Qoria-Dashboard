@@ -1,0 +1,12 @@
+.loaderContainer {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.loaderText {
+  margin-top: 16px;
+}
+
+.errorAlert {
+  margin: 20px 0;
+}

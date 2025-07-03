@@ -11,116 +11,56 @@ import {
   clearAllFilters,
   runReport,
 } from '../../store/slices/filterSlice'
+import styles from './FilterPanel.module.css'
 
 const { Title, Text } = Typography
 const { Option } = Select
 
-/**
- * FilterPanel Component - Handles category and product filtering
- * Implements atomic design principles as a molecule component
- */
 const FilterPanel: React.FC = () => {
   const dispatch = useDispatch()
-  
-  // Redux state selectors
-  const { categories, products, loading } = useSelector((state: RootState) => state.data)
-  const { 
-    selectedCategory, 
-    selectedProducts, 
-    isRunReportEnabled 
-  } = useSelector((state: RootState) => state.filter)
 
-  /**
-   * Get filtered products based on selected category
-   * Memoized for performance optimization
-   */
+  const { categories, products, loading } = useSelector((state: RootState) => state.data)
+  const { selectedCategory, selectedProducts, isRunReportEnabled } = useSelector((state: RootState) => state.filter)
+
   const filteredProducts = useMemo(() => {
     if (!selectedCategory) return []
     return products.filter(product => product.category === selectedCategory)
   }, [products, selectedCategory])
 
-  /**
-   * Handle category selection change
-   */
-  const handleCategoryChange = (value: string | null) => {
-    dispatch(setSelectedCategory(value))
-  }
-
-  /**
-   * Handle product selection change
-   */
-  const handleProductChange = (values: string[]) => {
-    dispatch(setSelectedProducts(values))
-  }
-
-  /**
-   * Handle individual filter clearing
-   */
-  const handleClearCategory = () => {
-    dispatch(clearCategoryFilter())
-  }
-
-  const handleClearProducts = () => {
-    dispatch(clearProductsFilter())
-  }
-
-  /**
-   * Handle clearing all filters
-   */
-  const handleClearAll = () => {
-    dispatch(clearAllFilters())
-  }
-
-  /**
-   * Handle run report action
-   */
-  const handleRunReport = () => {
-    dispatch(runReport())
-  }
+  const handleCategoryChange = (value: string | null) => dispatch(setSelectedCategory(value))
+  const handleProductChange = (values: string[]) => dispatch(setSelectedProducts(values))
+  const handleClearCategory = () => dispatch(clearCategoryFilter())
+  const handleClearProducts = () => dispatch(clearProductsFilter())
+  const handleClearAll = () => dispatch(clearAllFilters())
+  const handleRunReport = () => dispatch(runReport())
 
   return (
-    <Card 
-      title={
-        <Title level={4} style={{ margin: 0 }}>
-          Qoria Dashboard Filters
-        </Title>
-      }
-      style={{ 
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-        borderRadius: 12,
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
-      }}
+    <Card
+      title={<Title level={4} className={styles.title}>Qoria Dashboard Filters</Title>}
+      className={styles.card}
     >
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        
         {/* Category Filter Section */}
         <div>
           <Row justify="space-between" align="middle">
             <Col>
               <Text strong>Product Category</Text>
-              <Text type="secondary" style={{ marginLeft: 8 }}>
-                (Select one category)
-              </Text>
+              <Text type="secondary" style={{ marginLeft: 8 }}>(Select one category)</Text>
             </Col>
             <Col>
               {selectedCategory && (
-                <Button 
-                  type="text" 
-                  size="small" 
-                  icon={<ClearOutlined />}
-                  onClick={handleClearCategory}
-                >
+                <Button type="text" size="small" icon={<ClearOutlined />} onClick={handleClearCategory}>
                   Clear
                 </Button>
               )}
             </Col>
           </Row>
-          
+
           <Select
             placeholder="Select a product category"
             value={selectedCategory}
             onChange={handleCategoryChange}
-            style={{ width: '100%', marginTop: 8 }}
+            className={styles.select}
             size="large"
             allowClear
             loading={loading}
@@ -137,41 +77,34 @@ const FilterPanel: React.FC = () => {
           </Select>
         </div>
 
-        <Divider style={{ margin: '12px 0' }} />
+        <Divider className={styles.divider} />
 
         {/* Product Filter Section */}
         <div>
           <Row justify="space-between" align="middle">
             <Col>
               <Text strong>Products</Text>
-              <Text type="secondary" style={{ marginLeft: 8 }}>
-                (Select multiple products)
-              </Text>
+              <Text type="secondary" style={{ marginLeft: 8 }}>(Select multiple products)</Text>
             </Col>
             <Col>
               {selectedProducts.length > 0 && (
-                <Button 
-                  type="text" 
-                  size="small" 
-                  icon={<ClearOutlined />}
-                  onClick={handleClearProducts}
-                >
+                <Button type="text" size="small" icon={<ClearOutlined />} onClick={handleClearProducts}>
                   Clear
                 </Button>
               )}
             </Col>
           </Row>
-          
+
           <Select
             mode="multiple"
             placeholder={
-              selectedCategory 
-                ? "Select products from the chosen category" 
-                : "Please select a category first"
+              selectedCategory
+                ? 'Select products from the chosen category'
+                : 'Please select a category first'
             }
             value={selectedProducts}
             onChange={handleProductChange}
-            style={{ width: '100%', marginTop: 8 }}
+            className={styles.select}
             size="large"
             disabled={!selectedCategory || loading}
             showSearch
@@ -186,15 +119,15 @@ const FilterPanel: React.FC = () => {
               </Option>
             ))}
           </Select>
-          
+
           {!selectedCategory && (
-            <Text type="secondary" style={{ fontSize: '12px', marginTop: 4 }}>
+            <Text type="secondary" className={styles.disabledText}>
               Select a category first to enable product selection
             </Text>
           )}
         </div>
 
-        <Divider style={{ margin: '12px 0' }} />
+        <Divider className={styles.divider} />
 
         {/* Action Buttons */}
         <Row gutter={12}>
@@ -205,8 +138,8 @@ const FilterPanel: React.FC = () => {
               icon={<PlayCircleOutlined />}
               onClick={handleRunReport}
               disabled={!isRunReportEnabled}
-              style={{ 
-                width: '100%',
+              className={styles.runReportButton}
+              style={{
                 background: isRunReportEnabled ? '#1890ff' : undefined,
                 borderColor: isRunReportEnabled ? '#1890ff' : undefined,
               }}
@@ -228,12 +161,7 @@ const FilterPanel: React.FC = () => {
 
         {/* Filter Summary */}
         {(selectedCategory || selectedProducts.length > 0) && (
-          <div style={{ 
-            background: 'rgba(255, 255, 255, 0.7)', 
-            padding: 12, 
-            borderRadius: 8,
-            border: '1px solid #f0f0f0'
-          }}>
+          <div className={styles.selectionSummary}>
             <Text type="secondary" style={{ fontSize: '12px' }}>
               <strong>Current Selection:</strong><br />
               Category: {selectedCategory || 'None'}<br />

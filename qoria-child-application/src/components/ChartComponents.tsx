@@ -32,7 +32,6 @@ const PieChart: React.FC<{ data: PieChartData[]; loading?: boolean }> = ({
     const cleanupChart = () => {
       if (chartInstance.current) {
         try {
-          // Check if chart is still valid before destroying
           if (chartInstance.current.container && chartInstance.current.container.parentNode) {
             chartInstance.current.destroy()
           }
@@ -45,13 +44,11 @@ const PieChart: React.FC<{ data: PieChartData[]; loading?: boolean }> = ({
 
     cleanupChart()
 
-    // Only create chart if we have data
     if (!data || data.length === 0) {
       return
     }
 
     try {
-      // Create new chart with error handling
       chartInstance.current = Highcharts.chart(chartRef.current, {
         chart: {
           type: 'pie',
@@ -124,7 +121,7 @@ const PieChart: React.FC<{ data: PieChartData[]; loading?: boolean }> = ({
             name: item.name.length > 15 ? item.name.substring(0, 15) + '...' : item.name,
             y: item.value,
             color: `hsl(${(index * 137.5) % 360}, 70%, 60%)`,
-            fullName: item.name // Store full name for tooltip
+            fullName: item.name 
           }))
         } as Highcharts.SeriesPieOptions],
         credits: {
@@ -135,13 +132,11 @@ const PieChart: React.FC<{ data: PieChartData[]; loading?: boolean }> = ({
       console.error('Error creating pie chart:', err)
     }
 
-    // Cleanup function
     return () => {
       cleanupChart()
     }
   }, [data, loading, isDestroyed])
 
-  // Component unmount cleanup
   useEffect(() => {
     return () => {
       setIsDestroyed(true)
@@ -211,7 +206,6 @@ const ColumnChart: React.FC<{ data: ColumnChartData[]; loading?: boolean }> = ({
     const cleanupChart = () => {
       if (chartInstance.current) {
         try {
-          // Check if chart is still valid before destroying
           if (chartInstance.current.container && chartInstance.current.container.parentNode) {
             chartInstance.current.destroy()
           }
@@ -224,13 +218,11 @@ const ColumnChart: React.FC<{ data: ColumnChartData[]; loading?: boolean }> = ({
 
     cleanupChart()
 
-    // Only create chart if we have data
     if (!data || data.length === 0) {
       return
     }
 
     try {
-      // Create new chart with error handling
       chartInstance.current = Highcharts.chart(chartRef.current, {
         chart: {
           type: 'column',
@@ -332,13 +324,11 @@ const ColumnChart: React.FC<{ data: ColumnChartData[]; loading?: boolean }> = ({
       console.error('Error creating column chart:', err)
     }
 
-    // Cleanup function
     return () => {
       cleanupChart()
     }
   }, [data, loading, isDestroyed])
 
-  // Component unmount cleanup
   useEffect(() => {
     return () => {
       setIsDestroyed(true)
@@ -405,7 +395,6 @@ const ChartComponents: React.FC<ChartComponentsProps> = ({
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    // Simulate component initialization
     const timer = setTimeout(() => {
       setIsReady(true)
     }, 100)
@@ -464,7 +453,7 @@ const ChartComponents: React.FC<ChartComponentsProps> = ({
             title={
               <Title level={4} style={{ margin: 0, fontSize: '16px', color: 'black' }}>
                 <BarChartOutlined style={{ marginRight: 8 }} />
-                {showColumnChart ? 'Stock Analysis' : 'Products in selected category'}
+                {showColumnChart ? 'Products in selected category' : 'Products in selected category'}
               </Title>
             }
             style={{
